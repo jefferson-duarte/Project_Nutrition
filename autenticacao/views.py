@@ -5,6 +5,7 @@ from .utils import password_is_valid
 from django.contrib.auth.models import User
 from django.contrib.messages import constants
 from django.contrib import messages
+from django.contrib import auth
 
 
 def cadastro(request):
@@ -33,4 +34,20 @@ def cadastro(request):
             return redirect('/auth/cadastro')
             
 def logar(request):
-    return HttpResponse('Logar')
+    if request.method == 'GET':
+        return render(request, 'logar.html')
+    elif request.method == 'POST':
+        usuario = request.POST.get('usuario')
+        senha = request.POST.get('senha')
+        
+        user = auth.authenticate(
+            username=usuario,
+            password=senha,
+        )
+        
+        if not user:
+            messages.add_message(request, constants.ERROR, 'Usuário ou senha inválido.')
+            return redirect('/auth/logar')
+        else:
+            auth.login(request, user)
+            return redirect('/')
