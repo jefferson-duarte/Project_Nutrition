@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'plataforma/css/paciente.css' %}">
+{% endblock head %}
+
+{% block body %}
+    {% if user.is_authenticated %}
+      {% include 'partials/plataforma/_nav.html' %}
+    {% endif %}
+
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="col-md-2">
+                {% include 'partials/plataforma/_lateral.html' %}
+            </div>
+
+            <div class="col-md-8">
+                {% block plataforma %}{% endblock plataforma %}
+            </div>
+
+        </div>
+    </div>
+{% endblock body %}
