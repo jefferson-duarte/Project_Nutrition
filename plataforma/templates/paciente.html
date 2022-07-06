@@ -16,6 +16,35 @@
     <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#modal">
     Novo paciente
     </button>
+    
+    <br>
+    <br>
+    <div  class="row">
+        {% for paciente in pacientes %}
+            <div class="col-md-4">
+                <a href="#" class="link-hover">
+                    <div class="card-paciente">
+
+                        {% if paciente.sexo == 'M' %}
+                            <div class="foto-perfil">
+                                <img src="{% static 'plataforma/img/perfil2.png' %}">
+                            </div>
+                        {% else %}
+                            <div class="foto-perfil">
+                                <img src="{% static 'plataforma/img/perfil1.png' %}">
+                            </div>
+                        {% endif %}
+                        
+                        <br>
+                        <p class="dados">Nome: {{ paciente.nome }}</p>
+                        <p class="dados">Idade: {{ paciente.idade }}</p>
+                        <p class="dados">Telefone: {{ paciente.telefone }}</p>
+                        <p class="dados">E-mail: {{ paciente.email }}</p>
+                    </div>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
 
     <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
