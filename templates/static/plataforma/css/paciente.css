@@ -23,6 +23,7 @@
     box-shadow: 3px 3px 3px gray;
     padding: 20px;
     color: black;
+    margin-bottom: 20px;
 }
 
 .link-hover:hover{

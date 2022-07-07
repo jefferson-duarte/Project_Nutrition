@@ -47,12 +47,14 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <th scope="row">58 Kg</th>
-                <td>173 cm</td>
-                <td>19%</td>
-                <td>25%</td>
-            </tr>
+            {% for dado in dados_paciente %}
+                <tr>
+                    <th scope="row">{{ dado.peso }}</th>
+                    <td>{{ dado.altura }}</td>
+                    <td>{{ dado.percentual_gordura }}</td>
+                    <td>{{ dado.percentual_musculo }}</td>
+                </tr>
+            {% endfor %}
             
         </tbody>
     </table>
