@@ -80,18 +80,18 @@
                 <div class="modal-body">     
                         <h4 class="titulo">Adicionar refeição</h4>
 
-                        <button type="button" class="btn btn-outline-success">
+                        <button type="button" onclick="exibe_refeicao()" class="btn btn-outline-success">
                             + Nova refeição
                         </button>
 
-                        <button style="margin-left: 10px;" type="button" class="btn btn-outline-success" >
+                        <button style="margin-left: 10px;" onclick="exibe_opcao()" type="button" class="btn btn-outline-success" >
                             + Nova opção
                         </button>
                         <br>
                         <br>
                         
                         <div id="form-refeicao" style="display: block;">
-                            <form action="" method="POST">{% csrf_token %}
+                            <form action="{% url 'refeicao' paciente.id %}" method="POST">{% csrf_token %}
                                 <label for="validationServerUsername">Título</label>
                                 <div class="input-group">
                                     <input type="text" class="form-control" placeholder="Ex: Café da manhã" name="titulo">
@@ -132,7 +132,7 @@
                             </form>
                         </div>
 
-                        <div id="form-opcao" style="display: block;">
+                        <div id="form-opcao" style="display: none;">
                             <form action="" method="POST" enctype='multipart/form-data'>{% csrf_token %}
 
                                 <label for="validationServerUsername">Selecione a refeição</label>
@@ -165,5 +165,23 @@
             </div>
         </div>
     </div>
+
+    <script>
+        function exibe_refeicao(){
+            const form_refeicao = document.getElementById('form-refeicao')
+            const form_opcao = document.getElementById('form-opcao')
+    
+            form_refeicao.style.display = "block"
+            form_opcao.style.display = "none"
+        }
+    
+        function exibe_opcao(){
+            const form_refeicao = document.getElementById('form-refeicao')
+            const form_opcao = document.getElementById('form-opcao')
+    
+            form_refeicao.style.display = "none"
+            form_opcao.style.display = "block"
+        }
+    </script>
 
 {% endblock plataforma %}
