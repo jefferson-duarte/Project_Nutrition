@@ -1,4 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
+
+from plataforma.models import Pacientes
+from plataforma.views import pacientes
 from .utils import email_html, password_is_valid
 from django.contrib.auth.models import User
 from django.contrib.messages import constants
@@ -65,7 +68,7 @@ def logar(request):
             return redirect('/auth/logar')
         else:
             auth.login(request, user)
-            return redirect('/')
+            return redirect('/pacientes')
         
 def sair(request):
     auth.logout(request)
