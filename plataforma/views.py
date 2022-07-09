@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.messages import constants
 from django.contrib import messages
-from .models import Pacientes, DadosPaciente, Refeicao
+from .models import Pacientes, DadosPaciente, Refeicao, Opcao
 from django.views.decorators.csrf import csrf_exempt
 
 
@@ -137,7 +137,8 @@ def plano_alimentar(request, id):
         return redirect('/plano_alimentar_listar/')
     
     if request.method == 'GET':
-        return render(request, 'plano_alimentar.html', {'paciente': paciente})
+        r1 = Refeicao.objects.filter(paciente=paciente).order_by('horario')
+        return render(request, 'plano_alimentar.html', {'paciente': paciente, 'refeicao': r1})
     
     
 def refeicao(request, id_paciente):
@@ -164,3 +165,19 @@ def refeicao(request, id_paciente):
 
         messages.add_message(request, constants.SUCCESS, 'Refeição cadastrada')
         return redirect(f'/plano_alimentar/{id_paciente}')
+    
+
+def opcao(request, id_paciente):
+    if request.method == "POST":
+        id_refeicao = request.POST.get('refeicao')
+        imagem = request.FILES.get('imagem')
+        descricao = request.POST.get("descricao")
+
+        o1 = Opcao(refeicao_id=id_refeicao,
+                   imagem=imagem,
+                   descricao=descricao)
+
+        o1.save()
+
+        messages.add_message(request, constants.SUCCESS, 'Opção cadastrada')
+        return redirect(f'/plano_alimentar/{id_paciente}/')

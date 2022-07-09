@@ -44,27 +44,30 @@
 
     <div class="fundo-alimentar">
         
-        <div class="refeicao">
-            <div class="head-refeicao">
-                <span>Café da manhã</span>
-                <span style="float: right;">07:00h</span>
-            </div>
+        {% for re in refeicao %}
+            <div class="refeicao">
+                <div class="head-refeicao">
+                    <span>{{ re.titulo }}</span>
+                    <span style="float: right;">{{ re.horario }}</span>
+                </div>
 
-            <div class="body-refeicao">
-                <div class="opcao">
-                    <div class="row">
-                        <div class="col-md-2">
-                            <img width="100%" src="{% static 'plataforma/img/perfil1.png' %}"> 
+                <div class="body-refeicao">
+                    <div class="opcao">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <img width="100%" src="{% static 'plataforma/img/perfil1.png' %}"> 
+                            </div>
+
+                            <div class="col-md-10">
+                                Teste 2
+                            </div>
+
                         </div>
-
-                        <div class="col-md-10">
-                            Teste 2
-                        </div>
-
                     </div>
                 </div>
             </div>
-        </div>
+            <br>
+        {% endfor %}
     </div>
 
     <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -133,12 +136,14 @@
                         </div>
 
                         <div id="form-opcao" style="display: none;">
-                            <form action="" method="POST" enctype='multipart/form-data'>{% csrf_token %}
+                            <form action="{% url 'opcao' paciente.id %}" method="POST" enctype='multipart/form-data'>{% csrf_token %}
 
                                 <label for="validationServerUsername">Selecione a refeição</label>
                                 <div class="input-group">
                                     <select class="form-control" name="refeicao">
-                                        <option value="">Café da manhã</option>      
+                                        {% for re in refeicao %}
+                                            <option value="{{ re.id }}">{{ re.titulo }}</option>      
+                                        {% endfor %}
                                     </select>
                                 </div>
 
