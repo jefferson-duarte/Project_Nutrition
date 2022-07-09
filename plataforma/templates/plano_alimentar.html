@@ -52,18 +52,27 @@
                 </div>
 
                 <div class="body-refeicao">
-                    <div class="opcao">
-                        <div class="row">
-                            <div class="col-md-2">
-                                <img width="100%" src="{% static 'plataforma/img/perfil1.png' %}"> 
-                            </div>
 
-                            <div class="col-md-10">
-                                Teste 2
-                            </div>
+                    {% for o1 in opcao %}
+                        {% if o1.refeicao == re %}
+                            <div class="opcao">
+                                <div class="row">
+                                    {% if o1.imagem %}
+                                        <div class="col-md-2">
+                                            <img width="100%" src="{{ o1.imagem.url }}"> 
+                                        </div>
+                                    {% endif %}
+                                    
+                                    <div class="col-md-10">
+                                        {{ o1.descricao }}
+                                    </div>
 
-                        </div>
-                    </div>
+                                </div>
+                            </div>
+                            <br>
+                        {% endif %}
+                    {% endfor %}
+                
                 </div>
             </div>
             <br>
